@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026년 2분기 부산 신혼부부 전세자금 지원</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #ffffff;
+    --bg2: #f7f6f3;
+    --bg3: #f0efe9;
+    --text: #1a1a18;
+    --text2: #6b6b65;
+    --text3: #9b9b94;
+    --border: rgba(0,0,0,0.1);
+    --border2: rgba(0,0,0,0.18);
+    --blue: #185fa5;
+    --blue-bg: #e6f1fb;
+    --blue-text: #0c447c;
+    --green: #3b6d11;
+    --green-bg: #eaf3de;
+    --green-text: #27500a;
+    --warning-bg: #faeeda;
+    --warning-text: #854f0b;
+    --danger: #a32d2d;
+    --danger-bg: #fcebeb;
+    --danger-text: #791f1f;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1c1c1a;
+      --bg2: #252523;
+      --bg3: #2e2e2b;
+      --text: #e8e6de;
+      --text2: #a8a89e;
+      --text3: #6e6e66;
+      --border: rgba(255,255,255,0.1);
+      --border2: rgba(255,255,255,0.18);
+      --blue: #85b7eb;
+      --blue-bg: #042c53;
+      --blue-text: #b5d4f4;
+      --green: #97c459;
+      --green-bg: #173404;
+      --green-text: #c0dd97;
+      --warning-bg: #412402;
+      --warning-text: #fac775;
+      --danger: #f09595;
+      --danger-bg: #501313;
+      --danger-text: #f7c1c1;
+    }
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif;
+    background: var(--bg3);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 24px 16px 48px;
+  }
+
+  .container { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+
+  .card {
+    background: var(--bg);
+    border-radius: var(--radius);
+    border: 0.5px solid var(--border);
+    padding: 18px 20px;
+  }
+
+  /* Hero */
+  .hero { background: var(--bg2); }
+  .hero-title { font-size: 20px; font-weight: 600; margin-bottom: 5px; }
+  .hero-sub { font-size: 13px; color: var(--text2); margin-bottom: 8px; }
+  .badge {
+    display: inline-block;
+    background: var(--blue-bg);
+    color: var(--blue-text);
+    font-size: 12px; font-weight: 600;
+    padding: 4px 12px; border-radius: 20px;
+  }
+
+  /* Section header */
+  .section-header {
+    font-size: 12px; font-weight: 600;
+    color: var(--text3); letter-spacing: 0.05em;
+    text-transform: uppercase; margin: 4px 0 8px;
+  }
+
+  /* Saving banner */
+  .saving-banner {
+    background: var(--green-bg);
+    border: 0.5px solid var(--green);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+  }
+  .saving-label { font-size: 13px; font-weight: 600; color: var(--green-text); margin-bottom: 10px; }
+  .saving-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .saving-item { text-align: center; }
+  .saving-num { font-size: 20px; font-weight: 600; color: var(--text); }
+  .saving-cap { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  .saving-arrow { font-size: 20px; color: var(--text3); }
+  .saving-result { font-size: 26px; font-weight: 700; color: var(--green-text); }
+
+  /* Grid */
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  @media (max-width: 500px) {
+    .grid3 { grid-template-columns: 1fr 1fr; }
+  }
+
+  .stat-card { padding: 14px 16px; }
+  .stat-label { font-size: 10px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
+  .stat-value { font-size: 28px; font-weight: 700; color: var(--blue-text); line-height: 1.1; }
+  .stat-value-sm { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.1; }
+  .stat-desc { font-size: 12px; color: var(--text2); margin-top: 5px; line-height: 1.5; }
+  .stat-highlight { font-size: 12px; font-weight: 600; color: var(--green-text); margin-top: 4px; }
+  .card-accent { border: 1.5px solid var(--blue); }
+
+  /* Calendar */
+  .cal-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 480px) { .cal-wrap { grid-template-columns: 1fr; } }
+  .cal-month-title { font-size: 13px; font-weight: 600; text-align: center; margin-bottom: 10px; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+  .cal-dn { font-size: 10px; color: var(--text3); text-align: center; padding: 2px 0; }
+  .cal-d { font-size: 12px; text-align: center; padding: 5px 2px; border-radius: 5px; color: var(--text2); line-height: 1; }
+  .cal-d.empty { opacity: 0; }
+  .cal-d.sun { color: var(--danger); }
+  .cal-d.sat { color: var(--blue-text); }
+  .cal-d.range { background: var(--blue-bg); color: var(--blue-text); }
+  .cal-d.range-start { background: var(--blue); color: #fff; font-weight: 700; border-radius: 5px 0 0 5px; }
+  .cal-d.range-end { background: var(--danger); color: #fff; font-weight: 700; border-radius: 0 5px 5px 0; }
+  .cal-d.announce { background: var(--warning-bg); color: var(--warning-text); font-weight: 600; }
+
+  .deadline-banner {
+    background: var(--danger-bg);
+    border: 0.5px solid var(--danger);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    font-size: 13px; font-weight: 600;
+    color: var(--danger-text);
+    text-align: center; line-height: 1.8;
+    margin-top: 10px;
+  }
+  .deadline-banner small { font-size: 11px; font-weight: 400; opacity: 0.85; }
+
+  .cal-legend { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; font-size: 11px; color: var(--text2); align-items: center; }
+  .leg-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+
+  /* Rate compare */
+  .rate-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  @media (max-width: 520px) { .rate-compare { grid-template-columns: 1fr; gap: 16px; } }
+
+  .rate-table-side { padding-right: 16px; }
+  @media (max-width: 520px) { .rate-table-side { padding-right: 0; } }
+
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { font-size: 10px; font-weight: 600; color: var(--text3); text-align: right; padding: 5px 8px; border-bottom: 0.5px solid var(--border); }
+  th:first-child { text-align: left; }
+  td { padding: 9px 8px; border-bottom: 0.5px solid var(--border); text-align: right; }
+  td:first-child { text-align: left; color: var(--text2); font-size: 12px; }
+  tr:last-child td { border-bottom: none; }
+  tr.row-mine td { background: var(--green-bg); }
+  tr.row-mine td:first-child { border-radius: 6px 0 0 6px; color: var(--green-text); font-weight: 600; }
+  tr.row-mine td:last-child { border-radius: 0 6px 6px 0; }
+  tr.row-save td { color: var(--green-text); font-weight: 600; }
+  tr.row-save td:first-child { color: var(--green-text); }
+  .rate-note { font-size: 10px; color: var(--text3); margin-top: 8px; line-height: 1.5; }
+
+  /* Chart */
+  .chart-side {
+    border-left: 0.5px solid var(--border);
+    padding-left: 16px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  @media (max-width: 520px) { .chart-side { border-left: none; border-top: 0.5px solid var(--border); padding-left: 0; padding-top: 16px; } }
+
+  .chart-title { font-size: 11px; color: var(--text3); margin-bottom: 10px; }
+  .chart-selector { display: flex; gap: 6px; margin-bottom: 12px; }
+  .c-btn {
+    font-size: 11px; padding: 3px 10px;
+    border-radius: 12px;
+    border: 0.5px solid var(--border2);
+    background: var(--bg2); color: var(--text2);
+    cursor: pointer; transition: all 0.15s;
+    font-family: inherit;
+  }
+  .c-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+
+  .bars-wrap { display: flex; align-items: flex-end; gap: 20px; height: 150px; }
+  .bar-col { display: flex; flex-direction: column; align-items: center; gap: 4px; justify-content: flex-end; height: 100%; }
+  .bar-lbl { font-size: 11px; font-weight: 600; }
+  .bar-inner { display: flex; flex-direction: column; justify-content: flex-end; height: 130px; width: 44px; }
+  .bar-save { border-radius: 4px 4px 0 0; background: var(--green-bg); border: 0.5px dashed var(--green); }
+  .bar-mine-fill { background: var(--green); opacity: 0.85; }
+  .bar-market-fill { border-radius: 4px 4px 0 0; background: var(--bg3); border: 0.5px solid var(--border2); }
+  .bar-x { font-size: 10px; color: var(--text3); text-align: center; line-height: 1.3; margin-top: 4px; }
+
+  .save-tag {
+    margin-top: 8px; width: 100%;
+    text-align: center;
+    background: var(--green-bg); color: var(--green-text);
+    font-size: 11px; font-weight: 600;
+    border-radius: 10px; padding: 4px 0;
+  }
+  .chart-leg { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+  .chart-leg-item { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--text2); }
+  .chart-leg-box { width: 10px; height: 10px; border-radius: 2px; }
+
+  /* Process */
+  .process-wrap { display: flex; flex-direction: column; gap: 10px; }
+  .phase { border-radius: var(--radius-sm); padding: 14px 16px; }
+  .phase-a { background: var(--blue-bg); border: 0.5px solid var(--blue); }
+  .phase-b { background: var(--green-bg); border: 0.5px solid var(--green); }
+  .phase-lbl { font-size: 11px; font-weight: 700; margin-bottom: 8px; }
+  .phase-a .phase-lbl { color: var(--blue-text); }
+  .phase-b .phase-lbl { color: var(--green-text); }
+  .phase-steps { display: flex; align-items: flex-start; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+  .pstep { display: flex; align-items: flex-start; gap: 5px; }
+  .pdot {
+    width: 22px; height: 22px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
+  }
+  .dot-b { background: var(--blue); }
+  .dot-g { background: var(--green); }
+  .pstep-text { font-size: 12px; color: var(--text); line-height: 1.4; }
+  .pstep-sub { font-size: 10px; color: var(--text2); }
+  .parrow { font-size: 14px; color: var(--text3); padding-top: 4px; }
+  .phase-tip {
+    background: var(--warning-bg);
+    border-radius: var(--radius-sm);
+    padding: 8px 12px;
+    font-size: 12px; font-weight: 600;
+    color: var(--warning-text); line-height: 1.6;
+  }
+  .phase-sub-note { font-size: 11px; color: var(--text2); margin-top: 6px; line-height: 1.5; }
+
+  /* Qual list */
+  .qual-list { list-style: none; }
+  .qual-list li {
+    font-size: 13px; padding: 6px 0;
+    border-bottom: 0.5px solid var(--border);
+    display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
+  }
+  .qual-list li:last-child { border-bottom: none; }
+  .qdot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; margin-top: 6px; }
+
+  /* Caution */
+  .caution { background: var(--bg2); border-radius: var(--radius-sm); border: 0.5px solid var(--border); padding: 14px 16px; }
+  .caution-title { font-size: 11px; font-weight: 600; color: var(--text3); margin-bottom: 8px; }
+  .chip-row { display: flex; flex-wrap: wrap; gap: 5px; }
+  .chip {
+    font-size: 11px; background: var(--bg);
+    border: 0.5px solid var(--border2);
+    border-radius: var(--radius-sm);
+    padding: 3px 9px; color: var(--text2);
+  }
+
+  /* Contact */
+  .contact {
+    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+    padding: 12px 16px; background: var(--bg2);
+    border-radius: var(--radius-sm); border: 0.5px solid var(--border);
+    font-size: 13px;
+  }
+  .contact a { color: var(--blue); text-decoration: none; font-weight: 600; }
+  .sep { color: var(--border2); }
+
+  .card-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <div class="card hero">
+    <div class="hero-title">2026년 2분기 부산광역시 신혼부부 전세자금 지원</div>
+    <div class="hero-sub">모집 400세대 · 부산은행 모바일앱 신청</div>
+    <span class="badge">대출금리 연 3.5% → 본인 부담 연 1.5~1.7%</span>
+  </div>
+
+  <!-- 절감 -->
+  <div class="saving-banner">
+    <div class="saving-label">이자 절감 효과 (2억 원 대출 기준)</div>
+    <div class="saving-row">
+      <div class="saving-item">
+        <div class="saving-num">연 800만원</div>
+        <div class="saving-cap">시중금리 4.0% 이자</div>
+      </div>
+      <div class="saving-arrow">→</div>
+      <div class="saving-item">
+        <div class="saving-num">연 300만원</div>
+        <div class="saving-cap">본인 부담 (1.5%)</div>
+      </div>
+      <div class="saving-arrow">→</div>
+      <div class="saving-item">
+        <div class="saving-result">연 500만원 절감</div>
+        <div class="saving-cap">시중 4.0% 대비</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 신청기간 -->
+  <div class="section-header">신청 기간</div>
+  <div class="card">
+    <div class="cal-wrap">
+      <div>
+        <div class="cal-month-title">2026년 3월</div>
+        <div class="cal-grid">
+          <div class="cal-dn">일</div><div class="cal-dn">월</div><div class="cal-dn">화</div><div class="cal-dn">수</div><div class="cal-dn">목</div><div class="cal-dn">금</div><div class="cal-dn">토</div>
+          <div class="cal-d sun">1</div><div class="cal-d">2</div><div class="cal-d">3</div><div class="cal-d">4</div><div class="cal-d">5</div><div class="cal-d">6</div><div class="cal-d sat">7</div>
+          <div class="cal-d sun">8</div><div class="cal-d">9</div><div class="cal-d">10</div><div class="cal-d">11</div><div class="cal-d">12</div><div class="cal-d">13</div><div class="cal-d sat">14</div>
+          <div class="cal-d sun">15</div><div class="cal-d">16</div><div class="cal-d">17</div><div class="cal-d">18</div><div class="cal-d">19</div><div class="cal-d">20</div><div class="cal-d sat">21</div>
+          <div class="cal-d sun">22</div><div class="cal-d">23</div><div class="cal-d">24</div><div class="cal-d">25</div><div class="cal-d">26</div><div class="cal-d range-start">27</div><div class="cal-d range sat">28</div>
+          <div class="cal-d range sun">29</div><div class="cal-d range">30</div><div class="cal-d range">31</div><div class="cal-d empty">x</div><div class="cal-d empty">x</div><div class="cal-d empty">x</div><div class="cal-d empty">x</div>
+        </div>
+      </div>
+      <div>
+        <div class="cal-month-title">2026년 4월</div>
+        <div class="cal-grid">
+          <div class="cal-dn">일</div><div class="cal-dn">월</div><div class="cal-dn">화</div><div class="cal-dn">수</div><div class="cal-dn">목</div><div class="cal-dn">금</div><div class="cal-dn">토</div>
+          <div class="cal-d empty">x</div><div class="cal-d empty">x</div><div class="cal-d empty">x</div><div class="cal-d range">1</div><div class="cal-d range">2</div><div class="cal-d range">3</div><div class="cal-d range sat">4</div>
+          <div class="cal-d range sun">5</div><div class="cal-d range">6</div><div class="cal-d range">7</div><div class="cal-d range">8</div><div class="cal-d range-end">9</div><div class="cal-d">10</div><div class="cal-d sat">11</div>
+          <div class="cal-d sun">12</div><div class="cal-d">13</div><div class="cal-d">14</div><div class="cal-d announce">15</div><div class="cal-d">16</div><div class="cal-d">17</div><div class="cal-d sat">18</div>
+          <div class="cal-d sun">19</div><div class="cal-d">20</div><div class="cal-d">21</div><div class="cal-d">22</div><div class="cal-d">23</div><div class="cal-d">24</div><div class="cal-d sat">25</div>
+          <div class="cal-d sun">26</div><div class="cal-d">27</div><div class="cal-d">28</div><div class="cal-d">29</div><div class="cal-d">30</div><div class="cal-d empty">x</div><div class="cal-d empty">x</div>
+        </div>
+      </div>
+    </div>
+    <div class="deadline-banner">
+      신청 시작: 3월 27일(금) 오전 09:00 &nbsp;|&nbsp; 마감: 4월 9일(목) 오후 16:00<br>
+      <small>★ 400세대 초과 시 무작위 추첨 — 기간 내 빠른 신청 권장</small>
+    </div>
+    <div class="cal-legend">
+      <div class="leg-dot" style="background:var(--blue);"></div><span>신청 시작 (3/27)</span>
+      <div class="leg-dot" style="background:var(--blue-bg);border:0.5px solid var(--blue);"></div><span>신청기간</span>
+      <div class="leg-dot" style="background:var(--danger);"></div><span>마감 (4/9 16:00)</span>
+      <div class="leg-dot" style="background:var(--warning-bg);border:0.5px solid var(--warning-text);"></div><span>대상자 발표 (4/15)</span>
+    </div>
+  </div>
+
+  <!-- 핵심 조건 -->
+  <div class="section-header">핵심 조건</div>
+  <div class="grid3">
+    <div class="card stat-card card-accent">
+      <div class="stat-label">최대 대출한도</div>
+      <div class="stat-value">2억 원</div>
+      <div class="stat-desc">임차보증금 90% 이내<br>보증금 4억 이하 주택</div>
+    </div>
+    <div class="card stat-card">
+      <div class="stat-label">본인 부담 금리</div>
+      <div class="stat-value-sm">연 1.5%</div>
+      <div class="stat-desc">합산소득 1억 이하<br><span style="color:var(--text3)">1억 초과 시 연 1.7%</span></div>
+      <div class="stat-highlight">시에서 2.0% 지원</div>
+    </div>
+    <div class="card stat-card">
+      <div class="stat-label">이자 지원 기간</div>
+      <div class="stat-value-sm">최대 10년</div>
+      <div class="stat-desc">기본 2년, 자녀 출산 시<br>1명당 2년 추가 연장</div>
+    </div>
+  </div>
+
+  <!-- 금리 비교 -->
+  <div class="section-header">금리 비교 — 이자 부담</div>
+  <div class="card">
+    <div class="card-title">시중 전세대출 (4.0%) vs 내 실부담 (1.5%)</div>
+    <div class="chart-selector">
+      <button class="c-btn active" onclick="selectAmt(0)">1억 원</button>
+      <button class="c-btn" onclick="selectAmt(1)">1.5억 원</button>
+      <button class="c-btn" onclick="selectAmt(2)">2억 원</button>
+    </div>
+    <div class="rate-compare">
+      <div class="rate-table-side">
+        <table>
+          <thead>
+            <tr><th>구분</th><th>월 이자</th><th>연 이자</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>시중 전세대출 (4.0%)</td><td id="td-m-month">33.3만원</td><td id="td-m-year">400만원</td></tr>
+            <tr class="row-mine"><td>내 실부담 (1.5%)</td><td id="td-i-month">12.5만원</td><td id="td-i-year">150만원</td></tr>
+            <tr class="row-save"><td>절감</td><td id="td-s-month">20.8만원</td><td id="td-s-year">250만원</td></tr>
+          </tbody>
+        </table>
+        <div class="rate-note">※ 시중 금리는 참고 수치이며 은행·시기에 따라 상이</div>
+      </div>
+      <div class="chart-side">
+        <div class="chart-title">월 이자 비교</div>
+        <div class="bars-wrap">
+          <div class="bar-col">
+            <div class="bar-lbl" id="lbl-market" style="color:var(--text)">33.3만원</div>
+            <div class="bar-inner">
+              <div id="bar-market" class="bar-market-fill" style="height:130px;"></div>
+            </div>
+            <div class="bar-x">시중<br>전세대출</div>
+          </div>
+          <div class="bar-col">
+            <div class="bar-lbl" id="lbl-mine" style="color:var(--green-text)">12.5만원</div>
+            <div class="bar-inner">
+              <div id="bar-mine-part" class="bar-mine-fill" style="height:49px;border-radius:4px 4px 0 0;"></div>
+            </div>
+            <div class="bar-x">내<br>실부담</div>
+          </div>
+        </div>
+        <div class="save-tag" id="save-tag">월 20.8만원 절감</div>
+        <div class="chart-leg">
+          <div class="chart-leg-item"><div class="chart-leg-box" style="background:var(--bg3);border:0.5px solid var(--border2);"></div>시중 이자</div>
+          <div class="chart-leg-item"><div class="chart-leg-box" style="background:var(--green);opacity:0.85;"></div>내 부담</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 신청 절차 -->
+  <div class="section-header">신청 절차</div>
+  <div class="process-wrap">
+    <div class="phase phase-a">
+      <div class="phase-lbl">1단계 — 자격 심사 및 대상자 선정 (집 없어도 됩니다!)</div>
+      <div class="phase-steps">
+        <div class="pstep">
+          <div class="pdot dot-b">1</div>
+          <div class="pstep-text">부산은행 앱 신청<br><span class="pstep-sub">3.27(금) 09:00 ~<br>4.9(목) 16:00</span></div>
+        </div>
+        <div class="parrow">→</div>
+        <div class="pstep">
+          <div class="pdot dot-b">2</div>
+          <div class="pstep-text">부산시 자격 심사<br><span class="pstep-sub">소득·혼인 여부 등</span></div>
+        </div>
+        <div class="parrow">→</div>
+        <div class="pstep">
+          <div class="pdot dot-b">3</div>
+          <div class="pstep-text">대상자 발표<br><span class="pstep-sub">4.15(수)</span></div>
+        </div>
+      </div>
+      <div class="phase-tip">신청 시 집이 확정되어 있지 않아도 됩니다.<br>이 기간에는 신혼부부 자격(소득·혼인·무주택)만 확인합니다.</div>
+    </div>
+    <div class="phase phase-b">
+      <div class="phase-lbl">2단계 — 집 구하고 대출 실행 (선정 후 진행)</div>
+      <div class="phase-steps">
+        <div class="pstep">
+          <div class="pdot dot-g">4</div>
+          <div class="pstep-text">전세 매물 계약<br><span class="pstep-sub">보증금 4억 이하<br>부산시 소재</span></div>
+        </div>
+        <div class="parrow">→</div>
+        <div class="pstep">
+          <div class="pdot dot-g">5</div>
+          <div class="pstep-text">부산은행 서류 제출<br><span class="pstep-sub">잔금일 2주 전까지<br>임대차계약서 등</span></div>
+        </div>
+        <div class="parrow">→</div>
+        <div class="pstep">
+          <div class="pdot dot-g">6</div>
+          <div class="pstep-text">대출 실행<br><span class="pstep-sub">4.30 ~ 6.30</span></div>
+        </div>
+      </div>
+      <div class="phase-sub-note">※ 신청 기간 종료일 전일(4.8)까지 임대차계약을 먼저 체결한 경우도 신청 가능<br>※ 대출실행 후 1개월 내 전입 필수</div>
+    </div>
+  </div>
+
+  <!-- 자격요건 -->
+  <div class="section-header">자격 요건 (모두 충족해야 함)</div>
+  <div class="card">
+    <ul class="qual-list">
+      <li><span class="qdot"></span>신청일 기준 부부 모두 부산광역시 거주 (주소 등재)</li>
+      <li><span class="qdot"></span>혼인 7년 이내 신혼부부 또는 3개월 내 결혼 예정인 예비 신혼부부</li>
+      <li><span class="qdot"></span>부부 합산 연소득 1억 3천만 원 이하 무주택자</li>
+      <li><span class="qdot"></span>대상 주택: 부산시 소재 보증금 4억 이하 주택·오피스텔 (공공임대 제외)</li>
+    </ul>
+  </div>
+
+  <!-- 연장 조건 -->
+  <div class="section-header">이자 지원 연장 (최대 10년)</div>
+  <div class="grid2">
+    <div class="card stat-card">
+      <div class="stat-label">자녀 출산</div>
+      <div class="stat-value-sm" style="font-size:18px;">+2년 / 1명</div>
+      <div class="stat-desc">대출기간 내 임신·출산 시<br>1명당 1회 2년씩 연장</div>
+    </div>
+    <div class="card stat-card">
+      <div class="stat-label">난임 시술</div>
+      <div class="stat-value-sm" style="font-size:18px;">+2년 (1회)</div>
+      <div class="stat-desc">1년 이상 난임 시술 받은 경우<br>1회 2년 연장 가능</div>
+    </div>
+  </div>
+
+  <!-- 주의사항 -->
+  <div class="caution">
+    <div class="caution-title">제외 대상자 (해당 시 신청 불가)</div>
+    <div class="chip-row">
+      <span class="chip">기초생활수급자</span>
+      <span class="chip">공공임대주택 거주자</span>
+      <span class="chip">부모와 임대차 계약자</span>
+      <span class="chip">본 사업 기존 참여자 (생애 1회)</span>
+      <span class="chip">주택도시기금 등 중복 수혜자</span>
+    </div>
+    <div class="caution-title" style="margin-top:12px;">이자 지원 중단 사유</div>
+    <div class="chip-row">
+      <span class="chip">1개월 내 미전입</span>
+      <span class="chip">3개월 내 혼인 미증빙</span>
+      <span class="chip">주택 취득 시</span>
+      <span class="chip">부산시 외 전출·이혼</span>
+      <span class="chip">공공임대 입주</span>
+    </div>
+  </div>
+
+  <!-- 문의 -->
+  <div class="contact">
+    <span>문의</span>
+    <a href="tel:15886200">부산은행 ☎ 1588-6200</a>
+    <span class="sep">|</span>
+    <a href="https://www.busan.go.kr/childcare/childcare010106" target="_blank" style="font-size:12px;color:var(--text2);font-weight:400;">결과 발표 확인 (busan.go.kr) →</a>
+  </div>
+
+</div>
+
+<script>
+  const amts = [10000, 15000, 20000];
+  const MAX_H = 130;
+  let cur = 0;
+
+  function fmtWon(v) {
+    const r = Math.round(v * 10) / 10;
+    return r % 1 === 0 ? r.toFixed(0) + '만원' : r.toFixed(1) + '만원';
+  }
+
+  function selectAmt(idx) {
+    cur = idx;
+    document.querySelectorAll('.c-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+    update();
+  }
+
+  function update() {
+    const amt = amts[cur] * 10000;
+    const mYear = amt * 0.04 / 10000;
+    const iYear = amt * 0.015 / 10000;
+    const sYear = mYear - iYear;
+    const mMonth = mYear / 12;
+    const iMonth = iYear / 12;
+    const sMonth = sYear / 12;
+
+    document.getElementById('td-m-month').textContent = fmtWon(mMonth);
+    document.getElementById('td-m-year').textContent = fmtWon(mYear);
+    document.getElementById('td-i-month').textContent = fmtWon(iMonth);
+    document.getElementById('td-i-year').textContent = fmtWon(iYear);
+    document.getElementById('td-s-month').textContent = fmtWon(sMonth);
+    document.getElementById('td-s-year').textContent = fmtWon(sYear);
+    document.getElementById('lbl-market').textContent = fmtWon(mMonth);
+    document.getElementById('lbl-mine').textContent = fmtWon(iMonth);
+    document.getElementById('save-tag').textContent = '월 ' + fmtWon(sMonth) + ' 절감';
+
+    const maxBase = amts[2] * 10000 * 0.04 / 12 / 10000;
+    document.getElementById('bar-market').style.height = Math.round((mMonth / maxBase) * MAX_H) + 'px';
+    document.getElementById('bar-mine-part').style.height = Math.round((iMonth / maxBase) * MAX_H) + 'px';
+  }
+
+  update();
+</script>
+</body>
+</html>
