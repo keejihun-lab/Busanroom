@@ -366,52 +366,50 @@
   </div>
 
   <!-- 금리 비교 -->
-  <div class="section-header">금리 비교 — 연간 이자 부담</div>
+  <div class="section-header">금리 비교 — 이자 부담</div>
   <div class="card">
-    <div class="card-title">시중 일반 전세대출 vs 이 사업 실부담 (소득 1억 이하)</div>
+    <div class="card-title">시중 전세대출 (4.0%) vs 내 실부담 (1.5%)</div>
     <div class="chart-selector">
-      <button class="c-btn" onclick="selectAmt(0)">1억 원</button>
-      <button class="c-btn active" onclick="selectAmt(1)">1.5억 원</button>
+      <button class="c-btn active" onclick="selectAmt(0)">1억 원</button>
+      <button class="c-btn" onclick="selectAmt(1)">1.5억 원</button>
       <button class="c-btn" onclick="selectAmt(2)">2억 원</button>
     </div>
     <div class="rate-compare">
       <div class="rate-table-side">
         <table>
           <thead>
-            <tr><th>구분</th><th id="th-amt">1.5억 원</th></tr>
+            <tr><th>구분</th><th>월 이자</th><th>연 이자</th></tr>
           </thead>
           <tbody>
-            <tr><td>시중 전세대출 (약 4.0%)</td><td id="td-market">600만원</td></tr>
-            <tr class="row-mine"><td>내 실부담 (1.5%)</td><td id="td-mine">225만원</td></tr>
-            <tr class="row-save"><td>연간 절감</td><td id="td-save">375만원</td></tr>
+            <tr><td>시중 전세대출 (4.0%)</td><td id="td-m-month">33.3만원</td><td id="td-m-year">400만원</td></tr>
+            <tr class="row-mine"><td>내 실부담 (1.5%)</td><td id="td-i-month">12.5만원</td><td id="td-i-year">150만원</td></tr>
+            <tr class="row-save"><td>절감</td><td id="td-s-month">20.8만원</td><td id="td-s-year">250만원</td></tr>
           </tbody>
         </table>
-        <div class="rate-note">※ 시중 금리는 참고 수치(약 4.0%)이며<br>은행·시기에 따라 상이할 수 있음</div>
+        <div class="rate-note">※ 시중 금리는 참고 수치이며 은행·시기에 따라 상이</div>
       </div>
       <div class="chart-side">
-        <div class="chart-title">연간 이자 비교</div>
+        <div class="chart-title">월 이자 비교</div>
         <div class="bars-wrap">
           <div class="bar-col">
-            <div class="bar-lbl" id="lbl-market" style="color:var(--text)">600만원</div>
+            <div class="bar-lbl" id="lbl-market" style="color:var(--text)">33.3만원</div>
             <div class="bar-inner">
-              <div id="bar-market" class="bar-market-fill" style="height:91px;border-radius:4px 4px 0 0;"></div>
+              <div id="bar-market" class="bar-market-fill" style="height:130px;"></div>
             </div>
             <div class="bar-x">시중<br>전세대출</div>
           </div>
           <div class="bar-col">
-            <div class="bar-lbl" id="lbl-mine" style="color:var(--green-text)">225만원</div>
+            <div class="bar-lbl" id="lbl-mine" style="color:var(--green-text)">12.5만원</div>
             <div class="bar-inner">
-              <div id="bar-save-part" class="bar-save" style="height:57px;border-radius:4px 4px 0 0;"></div>
-              <div id="bar-mine-part" class="bar-mine-fill" style="height:34px;border-radius:0;"></div>
+              <div id="bar-mine-part" class="bar-mine-fill" style="height:49px;border-radius:4px 4px 0 0;"></div>
             </div>
             <div class="bar-x">내<br>실부담</div>
           </div>
         </div>
-        <div class="save-tag" id="save-tag">절감 375만원</div>
+        <div class="save-tag" id="save-tag">월 20.8만원 절감</div>
         <div class="chart-leg">
           <div class="chart-leg-item"><div class="chart-leg-box" style="background:var(--bg3);border:0.5px solid var(--border2);"></div>시중 이자</div>
           <div class="chart-leg-item"><div class="chart-leg-box" style="background:var(--green);opacity:0.85;"></div>내 부담</div>
-          <div class="chart-leg-item"><div class="chart-leg-box" style="background:var(--green-bg);border:0.5px dashed var(--green);"></div>부산시 지원</div>
         </div>
       </div>
     </div>
@@ -520,11 +518,13 @@
 
 <script>
   const amts = [10000, 15000, 20000];
-  const labels = ['1억 원', '1.5억 원', '2억 원'];
   const MAX_H = 130;
-  let cur = 1;
+  let cur = 0;
 
-  function fmtMan(v) { return Math.round(v / 1000000) + '만원'; }
+  function fmtWon(v) {
+    const r = Math.round(v * 10) / 10;
+    return r % 1 === 0 ? r.toFixed(0) + '만원' : r.toFixed(1) + '만원';
+  }
 
   function selectAmt(idx) {
     cur = idx;
@@ -533,30 +533,27 @@
   }
 
   function update() {
-    const base = amts[2] * 10000;
     const amt = amts[cur] * 10000;
-    const market = amt * 0.04;
-    const mine = amt * 0.015;
-    const save = market - mine;
-    const maxMarket = base * 0.04;
+    const mYear = amt * 0.04 / 10000;
+    const iYear = amt * 0.015 / 10000;
+    const sYear = mYear - iYear;
+    const mMonth = mYear / 12;
+    const iMonth = iYear / 12;
+    const sMonth = sYear / 12;
 
-    document.getElementById('th-amt').textContent = labels[cur];
-    document.getElementById('td-market').textContent = fmtMan(market);
-    document.getElementById('td-mine').textContent = fmtMan(mine);
-    document.getElementById('td-save').textContent = fmtMan(save);
-    document.getElementById('lbl-market').textContent = fmtMan(market);
-    document.getElementById('lbl-mine').textContent = fmtMan(mine);
-    document.getElementById('save-tag').textContent = '절감 ' + fmtMan(save);
+    document.getElementById('td-m-month').textContent = fmtWon(mMonth);
+    document.getElementById('td-m-year').textContent = fmtWon(mYear);
+    document.getElementById('td-i-month').textContent = fmtWon(iMonth);
+    document.getElementById('td-i-year').textContent = fmtWon(iYear);
+    document.getElementById('td-s-month').textContent = fmtWon(sMonth);
+    document.getElementById('td-s-year').textContent = fmtWon(sYear);
+    document.getElementById('lbl-market').textContent = fmtWon(mMonth);
+    document.getElementById('lbl-mine').textContent = fmtWon(iMonth);
+    document.getElementById('save-tag').textContent = '월 ' + fmtWon(sMonth) + ' 절감';
 
-    const mH = Math.round((market / maxMarket) * MAX_H);
-    const nH = Math.round((mine / maxMarket) * MAX_H);
-    const sH = mH - nH;
-
-    document.getElementById('bar-market').style.height = mH + 'px';
-    document.getElementById('bar-mine-part').style.height = nH + 'px';
-    document.getElementById('bar-save-part').style.height = sH + 'px';
-    document.getElementById('bar-save-part').style.borderRadius = '4px 4px 0 0';
-    document.getElementById('bar-mine-part').style.borderRadius = '0 0 0 0';
+    const maxBase = amts[2] * 10000 * 0.04 / 12 / 10000;
+    document.getElementById('bar-market').style.height = Math.round((mMonth / maxBase) * MAX_H) + 'px';
+    document.getElementById('bar-mine-part').style.height = Math.round((iMonth / maxBase) * MAX_H) + 'px';
   }
 
   update();
