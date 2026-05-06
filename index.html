@@ -1,562 +1,901 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026년 2분기 부산 신혼부부 전세자금 지원</title>
-<style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #ffffff;
-    --bg2: #f7f6f3;
-    --bg3: #f0efe9;
-    --text: #1a1a18;
-    --text2: #6b6b65;
-    --text3: #9b9b94;
-    --border: rgba(0,0,0,0.1);
-    --border2: rgba(0,0,0,0.18);
-    --blue: #185fa5;
-    --blue-bg: #e6f1fb;
-    --blue-text: #0c447c;
-    --green: #3b6d11;
-    --green-bg: #eaf3de;
-    --green-text: #27500a;
-    --warning-bg: #faeeda;
-    --warning-text: #854f0b;
-    --danger: #a32d2d;
-    --danger-bg: #fcebeb;
-    --danger-text: #791f1f;
-    --radius: 12px;
-    --radius-sm: 8px;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1c1c1a;
-      --bg2: #252523;
-      --bg3: #2e2e2b;
-      --text: #e8e6de;
-      --text2: #a8a89e;
-      --text3: #6e6e66;
-      --border: rgba(255,255,255,0.1);
-      --border2: rgba(255,255,255,0.18);
-      --blue: #85b7eb;
-      --blue-bg: #042c53;
-      --blue-text: #b5d4f4;
-      --green: #97c459;
-      --green-bg: #173404;
-      --green-text: #c0dd97;
-      --warning-bg: #412402;
-      --warning-text: #fac775;
-      --danger: #f09595;
-      --danger-bg: #501313;
-      --danger-text: #f7c1c1;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>문현동 롯데캐슬인피니엘</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-  }
 
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif;
-    background: var(--bg3);
-    color: var(--text);
-    min-height: 100vh;
-    padding: 24px 16px 48px;
-  }
+    body {
+      font-family: -apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+      background: #fff;
+      max-width: 480px;
+      margin: 0 auto;
+    }
 
-  .container { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+    /* ── Header ─────────────────────── */
+    .header {
+      background: #5B4ED8;
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+    }
 
-  .card {
-    background: var(--bg);
-    border-radius: var(--radius);
-    border: 0.5px solid var(--border);
-    padding: 18px 20px;
-  }
+    .header-back {
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+      margin-right: 2px;
+    }
 
-  /* Hero */
-  .hero { background: var(--bg2); }
-  .hero-title { font-size: 20px; font-weight: 600; margin-bottom: 5px; }
-  .hero-sub { font-size: 13px; color: var(--text2); margin-bottom: 8px; }
-  .badge {
-    display: inline-block;
-    background: var(--blue-bg);
-    color: var(--blue-text);
-    font-size: 12px; font-weight: 600;
-    padding: 4px 12px; border-radius: 20px;
-  }
+    .header-title {
+      flex: 1;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
 
-  /* Section header */
-  .section-header {
-    font-size: 12px; font-weight: 600;
-    color: var(--text3); letter-spacing: 0.05em;
-    text-transform: uppercase; margin: 4px 0 8px;
-  }
+    .header-call {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+      color: white;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 5px 12px 5px 9px;
+      white-space: nowrap;
+    }
 
-  /* Saving banner */
-  .saving-banner {
-    background: var(--green-bg);
-    border: 0.5px solid var(--green);
-    border-radius: var(--radius);
-    padding: 16px 20px;
-  }
-  .saving-label { font-size: 13px; font-weight: 600; color: var(--green-text); margin-bottom: 10px; }
-  .saving-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-  .saving-item { text-align: center; }
-  .saving-num { font-size: 20px; font-weight: 600; color: var(--text); }
-  .saving-cap { font-size: 11px; color: var(--text2); margin-top: 2px; }
-  .saving-arrow { font-size: 20px; color: var(--text3); }
-  .saving-result { font-size: 26px; font-weight: 700; color: var(--green-text); }
+    .header-call .call-icon {
+      font-size: 16px;
+      line-height: 1;
+    }
 
-  /* Grid */
-  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .grid2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  @media (max-width: 500px) {
-    .grid3 { grid-template-columns: 1fr 1fr; }
-  }
+    .header-call .call-text {
+      font-size: 13px;
+      font-weight: 700;
+    }
 
-  .stat-card { padding: 14px 16px; }
-  .stat-label { font-size: 10px; font-weight: 600; color: var(--text3); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 5px; }
-  .stat-value { font-size: 28px; font-weight: 700; color: var(--blue-text); line-height: 1.1; }
-  .stat-value-sm { font-size: 22px; font-weight: 700; color: var(--text); line-height: 1.1; }
-  .stat-desc { font-size: 12px; color: var(--text2); margin-top: 5px; line-height: 1.5; }
-  .stat-highlight { font-size: 12px; font-weight: 600; color: var(--green-text); margin-top: 4px; }
-  .card-accent { border: 1.5px solid var(--blue); }
+    /* ── Map container ───────────────── */
+    #map-container {
+      width: 100%;
+      position: relative;
+      background: #ccc;
+      overflow: hidden;
+    }
 
-  /* Calendar */
-  .cal-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  @media (max-width: 480px) { .cal-wrap { grid-template-columns: 1fr; } }
-  .cal-month-title { font-size: 13px; font-weight: 600; text-align: center; margin-bottom: 10px; }
-  .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
-  .cal-dn { font-size: 10px; color: var(--text3); text-align: center; padding: 2px 0; }
-  .cal-d { font-size: 12px; text-align: center; padding: 5px 2px; border-radius: 5px; color: var(--text2); line-height: 1; }
-  .cal-d.empty { opacity: 0; }
-  .cal-d.sun { color: var(--danger); }
-  .cal-d.sat { color: var(--blue-text); }
-  .cal-d.range { background: var(--blue-bg); color: var(--blue-text); }
-  .cal-d.range-start { background: var(--blue); color: #fff; font-weight: 700; border-radius: 5px 0 0 5px; }
-  .cal-d.range-end { background: var(--danger); color: #fff; font-weight: 700; border-radius: 0 5px 5px 0; }
-  .cal-d.announce { background: var(--warning-bg); color: var(--warning-text); font-weight: 600; }
+    #site-plan {
+      width: 100%;
+      display: block;
+    }
 
-  .deadline-banner {
-    background: var(--danger-bg);
-    border: 0.5px solid var(--danger);
-    border-radius: var(--radius-sm);
-    padding: 10px 14px;
-    font-size: 13px; font-weight: 600;
-    color: var(--danger-text);
-    text-align: center; line-height: 1.8;
-    margin-top: 10px;
-  }
-  .deadline-banner small { font-size: 11px; font-weight: 400; opacity: 0.85; }
+    #site-plan-fallback {
+      display: none;
+      width: 100%;
+      padding: 100px 20px;
+      text-align: center;
+      font-size: 14px;
+      color: #888;
+      background: #f0f0f0;
+      line-height: 1.8;
+    }
 
-  .cal-legend { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 8px; font-size: 11px; color: var(--text2); align-items: center; }
-  .leg-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+    /* ── 지도 위 탭 오버레이 ─────────── */
+    #map-overlay-tabs {
+      position: absolute;
+      top: 12px;
+      left: 3px;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.90);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 14px;
+      padding: 9px 11px 8px;
+      box-shadow: 0 2px 14px rgba(0, 0, 0, 0.18);
+      min-width: 175px;
+    }
 
-  /* Rate compare */
-  .rate-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-  @media (max-width: 520px) { .rate-compare { grid-template-columns: 1fr; gap: 16px; } }
+    #areaTabs {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 4px;
+    }
 
-  .rate-table-side { padding-right: 16px; }
-  @media (max-width: 520px) { .rate-table-side { padding-right: 0; } }
+    #txnTabsRow {
+      display: flex;
+      gap: 2px;
+      justify-content: flex-end;
+      margin-bottom: 6px;
+    }
 
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { font-size: 10px; font-weight: 600; color: var(--text3); text-align: right; padding: 5px 8px; border-bottom: 0.5px solid var(--border); }
-  th:first-child { text-align: left; }
-  td { padding: 9px 8px; border-bottom: 0.5px solid var(--border); text-align: right; }
-  td:first-child { text-align: left; color: var(--text2); font-size: 12px; }
-  tr:last-child td { border-bottom: none; }
-  tr.row-mine td { background: var(--green-bg); }
-  tr.row-mine td:first-child { border-radius: 6px 0 0 6px; color: var(--green-text); font-weight: 600; }
-  tr.row-mine td:last-child { border-radius: 0 6px 6px 0; }
-  tr.row-save td { color: var(--green-text); font-weight: 600; }
-  tr.row-save td:first-child { color: var(--green-text); }
-  .rate-note { font-size: 10px; color: var(--text3); margin-top: 8px; line-height: 1.5; }
+    .area-tab {
+      padding: 5px 13px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #999;
+      background: transparent;
+      transition: all 0.15s;
+      line-height: 1;
+    }
 
-  /* Chart */
-  .chart-side {
-    border-left: 0.5px solid var(--border);
-    padding-left: 16px;
-    display: flex; flex-direction: column; align-items: center;
-  }
-  @media (max-width: 520px) { .chart-side { border-left: none; border-top: 0.5px solid var(--border); padding-left: 0; padding-top: 16px; } }
+    .area-tab.active {
+      background: #1a1a1a;
+      color: #fff;
+    }
 
-  .chart-title { font-size: 11px; color: var(--text3); margin-bottom: 10px; }
-  .chart-selector { display: flex; gap: 6px; margin-bottom: 12px; }
-  .c-btn {
-    font-size: 11px; padding: 3px 10px;
-    border-radius: 12px;
-    border: 0.5px solid var(--border2);
-    background: var(--bg2); color: var(--text2);
-    cursor: pointer; transition: all 0.15s;
-    font-family: inherit;
-  }
-  .c-btn.active { background: var(--blue); color: #fff; border-color: var(--blue); }
+    /* 2행: 서브타입(왼쪽) + 가격(오른쪽) */
+    #overlay-bottom {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
 
-  .bars-wrap { display: flex; align-items: flex-end; gap: 20px; height: 150px; }
-  .bar-col { display: flex; flex-direction: column; align-items: center; gap: 4px; justify-content: flex-end; height: 100%; }
-  .bar-lbl { font-size: 11px; font-weight: 600; }
-  .bar-inner { display: flex; flex-direction: column; justify-content: flex-end; height: 130px; width: 44px; }
-  .bar-save { border-radius: 4px 4px 0 0; background: var(--green-bg); border: 0.5px dashed var(--green); }
-  .bar-mine-fill { background: var(--green); opacity: 0.85; }
-  .bar-market-fill { border-radius: 4px 4px 0 0; background: var(--bg3); border: 0.5px solid var(--border2); }
-  .bar-x { font-size: 10px; color: var(--text3); text-align: center; line-height: 1.3; margin-top: 4px; }
+    /* 서브타입 탭 열 */
+    #subtypeTabs {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      align-items: flex-start;
+    }
 
-  .save-tag {
-    margin-top: 8px; width: 100%;
-    text-align: center;
-    background: var(--green-bg); color: var(--green-text);
-    font-size: 11px; font-weight: 600;
-    border-radius: 10px; padding: 4px 0;
-  }
-  .chart-leg { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
-  .chart-leg-item { display: flex; align-items: center; gap: 4px; font-size: 10px; color: var(--text2); }
-  .chart-leg-box { width: 10px; height: 10px; border-radius: 2px; }
+    .subtype-tab {
+      padding: 5px 13px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1.5px solid transparent;
+      transition: all 0.15s;
+      line-height: 1;
+    }
 
-  /* Process */
-  .process-wrap { display: flex; flex-direction: column; gap: 10px; }
-  .phase { border-radius: var(--radius-sm); padding: 14px 16px; }
-  .phase-a { background: var(--blue-bg); border: 0.5px solid var(--blue); }
-  .phase-b { background: var(--green-bg); border: 0.5px solid var(--green); }
-  .phase-lbl { font-size: 11px; font-weight: 700; margin-bottom: 8px; }
-  .phase-a .phase-lbl { color: var(--blue-text); }
-  .phase-b .phase-lbl { color: var(--green-text); }
-  .phase-steps { display: flex; align-items: flex-start; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
-  .pstep { display: flex; align-items: flex-start; gap: 5px; }
-  .pdot {
-    width: 22px; height: 22px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
-  }
-  .dot-b { background: var(--blue); }
-  .dot-g { background: var(--green); }
-  .pstep-text { font-size: 12px; color: var(--text); line-height: 1.4; }
-  .pstep-sub { font-size: 10px; color: var(--text2); }
-  .parrow { font-size: 14px; color: var(--text3); padding-top: 4px; }
-  .phase-tip {
-    background: var(--warning-bg);
-    border-radius: var(--radius-sm);
-    padding: 8px 12px;
-    font-size: 12px; font-weight: 600;
-    color: var(--warning-text); line-height: 1.6;
-  }
-  .phase-sub-note { font-size: 11px; color: var(--text2); margin-top: 6px; line-height: 1.5; }
+    /* 비활성 — 공통 회색 */
+    .subtype-tab {
+      color: #aaa;
+      background: #f0f0f2;
+      border-color: #e0e0e2;
+    }
 
-  /* Qual list */
-  .qual-list { list-style: none; }
-  .qual-list li {
-    font-size: 13px; padding: 6px 0;
-    border-bottom: 0.5px solid var(--border);
-    display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
-  }
-  .qual-list li:last-child { border-bottom: none; }
-  .qdot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); flex-shrink: 0; margin-top: 6px; }
+    /* 59A 활성 — 보라 */
+    .subtype-tab[data-subtype="59A"].active {
+      color: #fff;
+      background: #5B4ED8;
+      border-color: #5B4ED8;
+      box-shadow: 0 2px 8px rgba(91, 78, 216, 0.4);
+    }
 
-  /* Caution */
-  .caution { background: var(--bg2); border-radius: var(--radius-sm); border: 0.5px solid var(--border); padding: 14px 16px; }
-  .caution-title { font-size: 11px; font-weight: 600; color: var(--text3); margin-bottom: 8px; }
-  .chip-row { display: flex; flex-wrap: wrap; gap: 5px; }
-  .chip {
-    font-size: 11px; background: var(--bg);
-    border: 0.5px solid var(--border2);
-    border-radius: var(--radius-sm);
-    padding: 3px 9px; color: var(--text2);
-  }
+    /* 59B 활성 — 파랑 */
+    .subtype-tab[data-subtype="59B"].active {
+      color: #fff;
+      background: #1890FF;
+      border-color: #1890FF;
+      box-shadow: 0 2px 8px rgba(24, 144, 255, 0.4);
+    }
 
-  /* Contact */
-  .contact {
-    display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
-    padding: 12px 16px; background: var(--bg2);
-    border-radius: var(--radius-sm); border: 0.5px solid var(--border);
-    font-size: 13px;
-  }
-  .contact a { color: var(--blue); text-decoration: none; font-weight: 600; }
-  .sep { color: var(--border2); }
+    /* 84 활성 — 코랄 */
+    .subtype-tab[data-subtype="84"].active {
+      color: #fff;
+      background: #E8603A;
+      border-color: #E8603A;
+      box-shadow: 0 2px 8px rgba(232, 96, 58, 0.4);
+    }
 
-  .card-title { font-size: 14px; font-weight: 600; margin-bottom: 12px; }
-</style>
+    .subtype-single {
+      font-size: 12px;
+      font-weight: 700;
+      color: #555;
+      padding: 2px 0;
+    }
+
+    /* ── 마커 레이어 ─────────────────── */
+    #markers-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ── Building marker ─────────────── */
+    @keyframes heartbeat {
+      0% {
+        transform: translate(-50%, calc(-100% - 9px)) scale(1);
+      }
+
+      14% {
+        transform: translate(-50%, calc(-100% - 9px)) scale(1.18);
+      }
+
+      28% {
+        transform: translate(-50%, calc(-100% - 9px)) scale(1);
+      }
+
+      42% {
+        transform: translate(-50%, calc(-100% - 9px)) scale(1.10);
+      }
+
+      70% {
+        transform: translate(-50%, calc(-100% - 9px)) scale(1);
+      }
+
+      100% {
+        transform: translate(-50%, calc(-100% - 9px)) scale(1);
+      }
+    }
+
+    .bld-marker {
+      --marker-bg: #5B4ED8;
+      position: absolute;
+      transform: translate(-50%, calc(-100% - 9px));
+      background: var(--marker-bg);
+      color: white;
+      border-radius: 9px;
+      padding: 6px 12px;
+      text-align: center;
+      white-space: nowrap;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+      line-height: 1.35;
+      cursor: pointer;
+      animation: heartbeat 1.6s ease-in-out infinite;
+    }
+
+    .bld-marker:active {
+      animation: none;
+      transform: translate(-50%, calc(-100% - 9px)) scale(0.92);
+    }
+
+    .bld-marker .dong {
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .bld-marker .type {
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .bld-marker .type.multi {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .bld-marker .t-label {
+      font-size: 14px;
+      font-weight: 800;
+    }
+
+    .bld-marker .t-sep {
+      font-size: 11px;
+      opacity: 0.6;
+    }
+
+    .bld-marker::after {
+      content: '';
+      position: absolute;
+      bottom: -9px;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 9px solid transparent;
+      border-top: 9px solid var(--marker-bg);
+      border-bottom: none;
+    }
+
+    /* 화살표 위쪽 마커 */
+    .bld-marker.arrow-up {
+      transform: translate(-50%, 9px);
+    }
+
+    .bld-marker.arrow-up:active {
+      transform: translate(-50%, 9px) scale(0.92);
+    }
+
+    @keyframes heartbeat-up {
+      0% {
+        transform: translate(-50%, 9px) scale(1);
+      }
+
+      14% {
+        transform: translate(-50%, 9px) scale(1.18);
+      }
+
+      28% {
+        transform: translate(-50%, 9px) scale(1);
+      }
+
+      42% {
+        transform: translate(-50%, 9px) scale(1.10);
+      }
+
+      70% {
+        transform: translate(-50%, 9px) scale(1);
+      }
+
+      100% {
+        transform: translate(-50%, 9px) scale(1);
+      }
+    }
+
+    .bld-marker.arrow-up {
+      animation: heartbeat-up 1.6s ease-in-out infinite;
+    }
+
+    .bld-marker.arrow-up::after {
+      bottom: auto;
+      top: -9px;
+      border-top: none;
+      border-bottom: 9px solid var(--marker-bg);
+    }
+
+    /* ── 단지 정보 ───────────────────── */
+    .danji-info {
+      background: #fff;
+      padding: 16px 16px 4px;
+    }
+
+    .danji-name {
+      font-size: 17px;
+      font-weight: 800;
+      color: #1a1a1a;
+      margin-bottom: 3px;
+    }
+
+    .danji-addr {
+      font-size: 12px;
+      color: #888;
+      margin-bottom: 14px;
+    }
+
+    .danji-stats {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .stat-item {
+      flex: 1;
+      background: #f7f7f9;
+      border-radius: 10px;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    .stat-val {
+      font-size: 15px;
+      font-weight: 800;
+      color: #1a1a1a;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #999;
+      margin-top: 2px;
+    }
+
+    .danji-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      padding-bottom: 16px;
+    }
+
+    .dtag {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: #f0eeff;
+      color: #5B4ED8;
+      border-radius: 20px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .dtag .ti {
+      font-size: 14px;
+    }
+
+    /* ── 오버레이 내 거래유형 탭 + 가격 범위 ── */
+    .txn-tab {
+      padding: 4px 10px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #f0f0f2;
+      color: #aaa;
+      transition: all 0.15s;
+      -webkit-tap-highlight-color: transparent;
+      line-height: 1;
+    }
+
+    .txn-tab.active-sale {
+      background: #5B4ED8;
+      color: #fff;
+    }
+
+    .txn-tab.active-lease {
+      background: #2E9B87;
+      color: #fff;
+    }
+
+    .txn-tab.active-rent {
+      background: #E07D3C;
+      color: #fff;
+    }
+
+    #priceRange {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 5px;
+      padding-top: 1px;
+    }
+
+    .pr-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+
+    .pr-label {
+      font-size: 12px;
+      color: #888;
+    }
+
+    .pr-val {
+      font-size: 13px;
+      font-weight: 800;
+      color: #1a1a1a;
+    }
+
+    .pr-empty {
+      font-size: 12px;
+      color: #bbb;
+      text-align: center;
+    }
+
+    /* ── Bottom ──────────────────────── */
+    .view-btn-wrap {
+      padding: 4px 16px 32px;
+    }
+
+    .view-btn {
+      width: 100%;
+      padding: 15px;
+      border: 1.5px solid #5B4ED8;
+      border-radius: 10px;
+      color: #5B4ED8;
+      background: white;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .view-btn:active {
+      background: #f4f2ff;
+    }
+
+    /* 사무소 정보 푸터 */
+    .office-footer {
+      margin: 0 16px 32px;
+      background: linear-gradient(135deg, #f7f6ff 0%, #eef4ff 100%);
+      border: 1.5px solid #e0dcff;
+      border-radius: 16px;
+      padding: 20px 20px 18px;
+    }
+    .office-name {
+      font-size: 16px;
+      font-weight: 800;
+      color: #1a1a1a;
+      margin-bottom: 14px;
+      letter-spacing: -0.3px;
+    }
+    .office-rows {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .office-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #444;
+    }
+    .office-row .o-icon {
+      font-size: 15px;
+      width: 20px;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .office-row .o-label {
+      color: #999;
+      font-size: 11px;
+      font-weight: 600;
+      min-width: 44px;
+    }
+    .office-row .o-val {
+      font-weight: 600;
+      color: #222;
+    }
+    .office-row .o-val.phone {
+      color: #5B4ED8;
+      font-weight: 700;
+    }
+    .office-divider {
+      height: 1px;
+      background: #e0dcff;
+      margin: 12px 0;
+    }
+
+    /* 평면도 섹션 */
+    .floor-plan-section {
+      padding: 0 16px 28px;
+    }
+    .floor-plan-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+    }
+    .floor-plan-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .fp-tab {
+      padding: 7px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      background: #f0f0f2;
+      color: #aaa;
+      border: none;
+    }
+    .fp-tab.active-59A { background: #5B4ED8; color: #fff; }
+    .fp-tab.active-59B { background: #1890FF; color: #fff; }
+    .fp-tab.active-84  { background: #E8603A; color: #fff; }
+    .floor-plan-img-wrap {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #f7f7f9;
+    }
+    .floor-plan-img-wrap img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
 </head>
+
 <body>
-<div class="container">
 
-  <!-- Hero -->
-  <div class="card hero">
-    <div class="hero-title">2026년 2분기 부산광역시 신혼부부 전세자금 지원</div>
-    <div class="hero-sub">모집 400세대 · 부산은행 모바일앱 신청</div>
-    <span class="badge">대출금리 연 3.5% → 본인 부담 연 1.5~1.7%</span>
+  <!-- ── Header ──────────────────────────── -->
+  <div class="header">
+    <div class="header-back">‹</div>
+    <div class="header-title">롯데캐슬인피니엘 매물리스트</div>
+    <a class="header-call" href="tel:010-6402-2328">
+      <span class="call-icon">📞</span>
+      <span class="call-text">바로 문의</span>
+    </a>
   </div>
 
-  <!-- 절감 -->
-  <div class="saving-banner">
-    <div class="saving-label">이자 절감 효과 (2억 원 대출 기준)</div>
-    <div class="saving-row">
-      <div class="saving-item">
-        <div class="saving-num">연 800만원</div>
-        <div class="saving-cap">시중금리 4.0% 이자</div>
+  <!-- ── Map (헤더 바로 아래) ──────────────── -->
+  <div id="map-container">
+    <img id="site-plan" src="danji.jpg" alt="단지 배치도"
+      onerror="this.style.display='none'; document.getElementById('site-plan-fallback').style.display='block';">
+    <div id="site-plan-fallback">
+      📂 <strong>danji.jpg</strong> 파일을<br>이 폴더에 저장해주세요
+    </div>
+
+    <!-- 지도 좌상단 탭 오버레이 -->
+    <div id="map-overlay-tabs">
+      <div id="areaTabs">
+        <div class="area-tab active" data-area="all">전체</div>
+        <div class="area-tab" data-area="25">25평</div>
+        <div class="area-tab" data-area="35">34평</div>
       </div>
-      <div class="saving-arrow">→</div>
-      <div class="saving-item">
-        <div class="saving-num">연 300만원</div>
-        <div class="saving-cap">본인 부담 (1.5%)</div>
+      <div id="txnTabsRow">
+        <div class="txn-tab active-sale" data-txn="sale">매매</div>
+        <div class="txn-tab" data-txn="lease">전세</div>
+        <div class="txn-tab" data-txn="rent">월세</div>
       </div>
-      <div class="saving-arrow">→</div>
-      <div class="saving-item">
-        <div class="saving-result">연 500만원 절감</div>
-        <div class="saving-cap">시중 4.0% 대비</div>
+      <div id="overlay-bottom">
+        <div id="subtypeTabs"></div>
+        <div id="priceRange"></div>
       </div>
     </div>
+
+    <div id="markers-layer"></div>
   </div>
 
-  <!-- 신청기간 -->
-  <div class="section-header">신청 기간</div>
-  <div class="card">
-    <div class="cal-wrap">
-      <div>
-        <div class="cal-month-title">2026년 3월</div>
-        <div class="cal-grid">
-          <div class="cal-dn">일</div><div class="cal-dn">월</div><div class="cal-dn">화</div><div class="cal-dn">수</div><div class="cal-dn">목</div><div class="cal-dn">금</div><div class="cal-dn">토</div>
-          <div class="cal-d sun">1</div><div class="cal-d">2</div><div class="cal-d">3</div><div class="cal-d">4</div><div class="cal-d">5</div><div class="cal-d">6</div><div class="cal-d sat">7</div>
-          <div class="cal-d sun">8</div><div class="cal-d">9</div><div class="cal-d">10</div><div class="cal-d">11</div><div class="cal-d">12</div><div class="cal-d">13</div><div class="cal-d sat">14</div>
-          <div class="cal-d sun">15</div><div class="cal-d">16</div><div class="cal-d">17</div><div class="cal-d">18</div><div class="cal-d">19</div><div class="cal-d">20</div><div class="cal-d sat">21</div>
-          <div class="cal-d sun">22</div><div class="cal-d">23</div><div class="cal-d">24</div><div class="cal-d">25</div><div class="cal-d">26</div><div class="cal-d range-start">27</div><div class="cal-d range sat">28</div>
-          <div class="cal-d range sun">29</div><div class="cal-d range">30</div><div class="cal-d range">31</div><div class="cal-d empty">x</div><div class="cal-d empty">x</div><div class="cal-d empty">x</div><div class="cal-d empty">x</div>
-        </div>
-      </div>
-      <div>
-        <div class="cal-month-title">2026년 4월</div>
-        <div class="cal-grid">
-          <div class="cal-dn">일</div><div class="cal-dn">월</div><div class="cal-dn">화</div><div class="cal-dn">수</div><div class="cal-dn">목</div><div class="cal-dn">금</div><div class="cal-dn">토</div>
-          <div class="cal-d empty">x</div><div class="cal-d empty">x</div><div class="cal-d empty">x</div><div class="cal-d range">1</div><div class="cal-d range">2</div><div class="cal-d range">3</div><div class="cal-d range sat">4</div>
-          <div class="cal-d range sun">5</div><div class="cal-d range">6</div><div class="cal-d range">7</div><div class="cal-d range">8</div><div class="cal-d range-end">9</div><div class="cal-d">10</div><div class="cal-d sat">11</div>
-          <div class="cal-d sun">12</div><div class="cal-d">13</div><div class="cal-d">14</div><div class="cal-d announce">15</div><div class="cal-d">16</div><div class="cal-d">17</div><div class="cal-d sat">18</div>
-          <div class="cal-d sun">19</div><div class="cal-d">20</div><div class="cal-d">21</div><div class="cal-d">22</div><div class="cal-d">23</div><div class="cal-d">24</div><div class="cal-d sat">25</div>
-          <div class="cal-d sun">26</div><div class="cal-d">27</div><div class="cal-d">28</div><div class="cal-d">29</div><div class="cal-d">30</div><div class="cal-d empty">x</div><div class="cal-d empty">x</div>
-        </div>
-      </div>
+  <!-- ── 전체 매물 버튼 ────────────────────── -->
+  <div class="view-btn-wrap">
+    <button class="view-btn" onclick="location.href='danji.html'">이 단지 전체 매물 보기</button>
+  </div>
+
+  <!-- ── 평면도 ────────────────────────────── -->
+  <div class="floor-plan-section">
+    <div class="floor-plan-title">평면도</div>
+    <div class="floor-plan-tabs">
+      <button class="fp-tab active-59A" data-fp="59A" onclick="selectFloorPlan('59A')">59A</button>
+      <button class="fp-tab" data-fp="59B" onclick="selectFloorPlan('59B')">59B</button>
+      <button class="fp-tab" data-fp="84" onclick="selectFloorPlan('84')">84</button>
     </div>
-    <div class="deadline-banner">
-      신청 시작: 3월 27일(금) 오전 09:00 &nbsp;|&nbsp; 마감: 4월 9일(목) 오후 16:00<br>
-      <small>★ 400세대 초과 시 무작위 추첨 — 기간 내 빠른 신청 권장</small>
-    </div>
-    <div class="cal-legend">
-      <div class="leg-dot" style="background:var(--blue);"></div><span>신청 시작 (3/27)</span>
-      <div class="leg-dot" style="background:var(--blue-bg);border:0.5px solid var(--blue);"></div><span>신청기간</span>
-      <div class="leg-dot" style="background:var(--danger);"></div><span>마감 (4/9 16:00)</span>
-      <div class="leg-dot" style="background:var(--warning-bg);border:0.5px solid var(--warning-text);"></div><span>대상자 발표 (4/15)</span>
+    <div class="floor-plan-img-wrap">
+      <img id="floor-plan-img" src="59A.jpg" alt="59A 평면도">
     </div>
   </div>
 
-  <!-- 핵심 조건 -->
-  <div class="section-header">핵심 조건</div>
-  <div class="grid3">
-    <div class="card stat-card card-accent">
-      <div class="stat-label">최대 대출한도</div>
-      <div class="stat-value">2억 원</div>
-      <div class="stat-desc">임차보증금 90% 이내<br>보증금 4억 이하 주택</div>
+  <!-- ── 단지 정보 ─────────────────────────── -->
+  <div class="danji-info">
+    <div class="danji-name">롯데캐슬 인피니엘</div>
+    <div class="danji-addr">부산시 남구 문현동 295-1번지 일원</div>
+
+    <div class="danji-stats">
+      <div class="stat-item">
+        <div class="stat-val">715세대</div>
+        <div class="stat-label">총 세대수</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">786대</div>
+        <div class="stat-label">주차대수</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-val">1.10대</div>
+        <div class="stat-label">세대당 주차</div>
+      </div>
     </div>
-    <div class="card stat-card">
-      <div class="stat-label">본인 부담 금리</div>
-      <div class="stat-value-sm">연 1.5%</div>
-      <div class="stat-desc">합산소득 1억 이하<br><span style="color:var(--text3)">1억 초과 시 연 1.7%</span></div>
-      <div class="stat-highlight">시에서 2.0% 지원</div>
+
+    <div class="danji-tags">
+      <div class="dtag"><span class="ti">🚇</span> 문현역 도보 5분</div>
+      <div class="dtag"><span class="ti">🏫</span> 문현초 인근</div>
+      <div class="dtag"><span class="ti">🏥</span> 인근 병원 다수</div>
+      <div class="dtag"><span class="ti">🛒</span> 롯데마트 인근</div>
+      <div class="dtag"><span class="ti">🌳</span> 단지 내 공원</div>
+      <div class="dtag"><span class="ti">🔒</span> 24시 경비</div>
     </div>
-    <div class="card stat-card">
-      <div class="stat-label">이자 지원 기간</div>
-      <div class="stat-value-sm">최대 10년</div>
-      <div class="stat-desc">기본 2년, 자녀 출산 시<br>1명당 2년 추가 연장</div>
-    </div>
+
   </div>
 
-  <!-- 금리 비교 -->
-  <div class="section-header">금리 비교 — 이자 부담</div>
-  <div class="card">
-    <div class="card-title">시중 전세대출 (4.0%) vs 내 실부담 (1.5%)</div>
-    <div class="chart-selector">
-      <button class="c-btn active" onclick="selectAmt(0)">1억 원</button>
-      <button class="c-btn" onclick="selectAmt(1)">1.5억 원</button>
-      <button class="c-btn" onclick="selectAmt(2)">2억 원</button>
-    </div>
-    <div class="rate-compare">
-      <div class="rate-table-side">
-        <table>
-          <thead>
-            <tr><th>구분</th><th>월 이자</th><th>연 이자</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>시중 전세대출 (4.0%)</td><td id="td-m-month">33.3만원</td><td id="td-m-year">400만원</td></tr>
-            <tr class="row-mine"><td>내 실부담 (1.5%)</td><td id="td-i-month">12.5만원</td><td id="td-i-year">150만원</td></tr>
-            <tr class="row-save"><td>절감</td><td id="td-s-month">20.8만원</td><td id="td-s-year">250만원</td></tr>
-          </tbody>
-        </table>
-        <div class="rate-note">※ 시중 금리는 참고 수치이며 은행·시기에 따라 상이</div>
+  <!-- ── 사무소 정보 ─────────────────────────── -->
+  <div class="office-footer">
+    <div class="office-name">더행복공인중개사사무소</div>
+    <div class="office-rows">
+      <div class="office-row">
+        <span class="o-icon">📞</span>
+        <span class="o-label">전화</span>
+        <span class="o-val phone">010-6402-2328</span>
       </div>
-      <div class="chart-side">
-        <div class="chart-title">월 이자 비교</div>
-        <div class="bars-wrap">
-          <div class="bar-col">
-            <div class="bar-lbl" id="lbl-market" style="color:var(--text)">33.3만원</div>
-            <div class="bar-inner">
-              <div id="bar-market" class="bar-market-fill" style="height:130px;"></div>
-            </div>
-            <div class="bar-x">시중<br>전세대출</div>
-          </div>
-          <div class="bar-col">
-            <div class="bar-lbl" id="lbl-mine" style="color:var(--green-text)">12.5만원</div>
-            <div class="bar-inner">
-              <div id="bar-mine-part" class="bar-mine-fill" style="height:49px;border-radius:4px 4px 0 0;"></div>
-            </div>
-            <div class="bar-x">내<br>실부담</div>
-          </div>
-        </div>
-        <div class="save-tag" id="save-tag">월 20.8만원 절감</div>
-        <div class="chart-leg">
-          <div class="chart-leg-item"><div class="chart-leg-box" style="background:var(--bg3);border:0.5px solid var(--border2);"></div>시중 이자</div>
-          <div class="chart-leg-item"><div class="chart-leg-box" style="background:var(--green);opacity:0.85;"></div>내 부담</div>
-        </div>
+      <div class="office-divider"></div>
+      <div class="office-row">
+        <span class="o-icon">👤</span>
+        <span class="o-label">대표</span>
+        <span class="o-val">이지훈</span>
+      </div>
+      <div class="office-row">
+        <span class="o-icon">📋</span>
+        <span class="o-label">등록번호</span>
+        <span class="o-val">26500-2026-00034</span>
+      </div>
+      <div class="office-row">
+        <span class="o-icon">📍</span>
+        <span class="o-label">주소</span>
+        <span class="o-val">부산 수영구 광안동 120-261</span>
       </div>
     </div>
   </div>
 
-  <!-- 신청 절차 -->
-  <div class="section-header">신청 절차</div>
-  <div class="process-wrap">
-    <div class="phase phase-a">
-      <div class="phase-lbl">1단계 — 자격 심사 및 대상자 선정 (집 없어도 됩니다!)</div>
-      <div class="phase-steps">
-        <div class="pstep">
-          <div class="pdot dot-b">1</div>
-          <div class="pstep-text">부산은행 앱 신청<br><span class="pstep-sub">3.27(금) 09:00 ~<br>4.9(목) 16:00</span></div>
+  <script>
+    // y값: 기존 위치에서 161px 위로 이동 (161/1920 ≈ 8.4% 감소)
+    const buildings = [
+      { id: 101, types: ['59A'], x: 80, y: 16 },
+      { id: 102, types: ['59A'], x: 62, y: 25 },
+      { id: 103, types: ['59A', '84'], x: 80, y: 45, arrowUp: true },
+      { id: 104, types: ['59A'], x: 78, y: 70, arrowUp: true },
+      { id: 105, types: ['59A', '59B'], x: 45, y: 55 },
+      { id: 106, types: ['59A', '59B'], x: 25, y: 65 },
+      { id: 107, types: ['59A', '59B', '84'], x: 43, y: 80 },
+      { id: 108, types: ['59A', '59B'], x: 60, y: 90, arrowUp: true },
+    ];
+
+    const SUBTYPE_COLOR = { '59A': '#5B4ED8', '59B': '#1890FF', '84': '#E8603A' };
+
+    const areaConfig = {
+      'all': { subtypes: ['59A', '59B', '84'] },
+      '25': { subtypes: ['59A', '59B'] },
+      '35': { subtypes: ['84'] },
+    };
+
+    let currentArea = 'all';
+    let currentSubtype = '59A';
+
+    function renderMarkers() {
+      const layer = document.getElementById('markers-layer');
+      layer.innerHTML = '';
+
+      const validSubtypes = areaConfig[currentArea].subtypes;
+
+      buildings.forEach(b => {
+        if (!b.types.includes(currentSubtype)) return;
+        if (!validSubtypes.includes(currentSubtype)) return;
+
+        const el = document.createElement('div');
+        el.className = 'bld-marker' + (b.arrowUp ? ' arrow-up' : '');
+        el.style.left = b.x + '%';
+        el.style.top = b.y + '%';
+        el.style.setProperty('--marker-bg', SUBTYPE_COLOR[currentSubtype] || '#5B4ED8');
+        el.innerHTML =
+          `<div class="dong">${b.id}동</div>` +
+          `<div class="type">${currentSubtype}</div>`;
+        el.addEventListener('click', () => { location.href = `detail.html?dong=${b.id}`; });
+        layer.appendChild(el);
+      });
+    }
+
+    function renderSubtabs() {
+      const container = document.getElementById('subtypeTabs');
+      container.innerHTML = '';
+
+      const subtypes = areaConfig[currentArea].subtypes;
+
+      // currentSubtype이 이 평수에서 유효하지 않으면 첫 번째로 초기화
+      if (!subtypes.includes(currentSubtype)) currentSubtype = subtypes[0];
+
+      subtypes.forEach(st => {
+        const tab = document.createElement('div');
+        tab.className = 'subtype-tab' + (currentSubtype === st ? ' active' : '');
+        tab.dataset.subtype = st;
+        tab.textContent = st;
+        tab.addEventListener('click', () => {
+          container.querySelectorAll('.subtype-tab').forEach(t => t.classList.remove('active'));
+          tab.classList.add('active');
+          currentSubtype = st;
+          renderMarkers();
+          updatePriceRange();
+        });
+        container.appendChild(tab);
+      });
+
+      renderMarkers();
+      updatePriceRange();
+    }
+
+    document.querySelectorAll('.area-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.area-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        currentArea = tab.dataset.area;
+        if (currentArea === '25' && !['59A', '59B'].includes(currentSubtype)) currentSubtype = '59A';
+        if (currentArea === '35') currentSubtype = '84';
+        renderSubtabs();
+      });
+    });
+
+    // ── 거래유형 탭 + 가격 범위 ─────────────────────────────
+    const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4fD6cOg4-utmMUse3ZnG2umK2a6-k9xj6rj6Dda5AuhQ8w3eyzZqDtQyM58sLVHVTkoWDQI94UbDK/pub?output=csv';
+
+    function parseNum(s, zeroAsNull = false) {
+      if (s == null || s === '' || s === '#REF!') return null;
+      const n = parseInt(String(s).replace(/,/g, ''), 10);
+      if (isNaN(n)) return null;
+      if (zeroAsNull && n === 0) return null;
+      return n;
+    }
+
+    function parseCSV(text) {
+      const lines = text.trim().split('\n');
+      const rows = [];
+      for (let i = 1; i < lines.length; i++) {
+        const cols = [];
+        let cur = '', inQ = false;
+        for (const ch of lines[i]) {
+          if (ch === '"') { inQ = !inQ; }
+          else if (ch === ',' && !inQ) { cols.push(cur.trim()); cur = ''; }
+          else { cur += ch; }
+        }
+        cols.push(cur.trim());
+        if (cols.length < 9) continue;
+        let gbn = cols[0];
+        if (gbn.includes('매매') && gbn.includes('전세')) gbn = '매매+전세';
+        const type = (cols[5] && cols[5] !== '#REF!') ? cols[5] : (cols[9] && cols[9] !== '#REF!' ? cols[9] : null);
+        if (!type) continue;
+        rows.push({ gbn, type, total: parseNum(cols[8], true), jeonse: parseNum(cols[7], true) });
+      }
+      return rows;
+    }
+
+    let allListings = [];
+
+    function fmtMan(v) {
+      return v.toLocaleString() + '만원';
+    }
+
+    let currentTxn = 'sale';
+
+    function updatePriceRange() {
+      const box = document.getElementById('priceRange');
+
+      if (currentTxn === 'rent') {
+        box.innerHTML = '<div class="pr-empty">매물 준비 중</div>';
+        return;
+      }
+
+      let prices = [];
+      if (currentTxn === 'sale') {
+        prices = allListings
+          .filter(x => x.type === currentSubtype && (x.gbn.includes('매매') || x.gbn === '반반') && x.total != null)
+          .map(x => x.total);
+      } else {
+        prices = allListings
+          .filter(x => x.type === currentSubtype && x.jeonse != null)
+          .map(x => x.jeonse);
+      }
+
+      if (prices.length === 0) {
+        box.innerHTML = '<div class="pr-empty">매물 없음</div>';
+        return;
+      }
+
+      const min = Math.min(...prices);
+      const max = Math.max(...prices);
+      box.innerHTML = `
+        <div class="pr-row">
+          <span class="pr-label">최저가</span>
+          <span class="pr-val">${fmtMan(min)}</span>
         </div>
-        <div class="parrow">→</div>
-        <div class="pstep">
-          <div class="pdot dot-b">2</div>
-          <div class="pstep-text">부산시 자격 심사<br><span class="pstep-sub">소득·혼인 여부 등</span></div>
+        <div class="pr-row">
+          <span class="pr-label">최고가</span>
+          <span class="pr-val">${fmtMan(max)}</span>
         </div>
-        <div class="parrow">→</div>
-        <div class="pstep">
-          <div class="pdot dot-b">3</div>
-          <div class="pstep-text">대상자 발표<br><span class="pstep-sub">4.15(수)</span></div>
-        </div>
-      </div>
-      <div class="phase-tip">신청 시 집이 확정되어 있지 않아도 됩니다.<br>이 기간에는 신혼부부 자격(소득·혼인·무주택)만 확인합니다.</div>
-    </div>
-    <div class="phase phase-b">
-      <div class="phase-lbl">2단계 — 집 구하고 대출 실행 (선정 후 진행)</div>
-      <div class="phase-steps">
-        <div class="pstep">
-          <div class="pdot dot-g">4</div>
-          <div class="pstep-text">전세 매물 계약<br><span class="pstep-sub">보증금 4억 이하<br>부산시 소재</span></div>
-        </div>
-        <div class="parrow">→</div>
-        <div class="pstep">
-          <div class="pdot dot-g">5</div>
-          <div class="pstep-text">부산은행 서류 제출<br><span class="pstep-sub">잔금일 2주 전까지<br>임대차계약서 등</span></div>
-        </div>
-        <div class="parrow">→</div>
-        <div class="pstep">
-          <div class="pdot dot-g">6</div>
-          <div class="pstep-text">대출 실행<br><span class="pstep-sub">4.30 ~ 6.30</span></div>
-        </div>
-      </div>
-      <div class="phase-sub-note">※ 신청 기간 종료일 전일(4.8)까지 임대차계약을 먼저 체결한 경우도 신청 가능<br>※ 대출실행 후 1개월 내 전입 필수</div>
-    </div>
-  </div>
+      `;
+    }
 
-  <!-- 자격요건 -->
-  <div class="section-header">자격 요건 (모두 충족해야 함)</div>
-  <div class="card">
-    <ul class="qual-list">
-      <li><span class="qdot"></span>신청일 기준 부부 모두 부산광역시 거주 (주소 등재)</li>
-      <li><span class="qdot"></span>혼인 7년 이내 신혼부부 또는 3개월 내 결혼 예정인 예비 신혼부부</li>
-      <li><span class="qdot"></span>부부 합산 연소득 1억 3천만 원 이하 무주택자</li>
-      <li><span class="qdot"></span>대상 주택: 부산시 소재 보증금 4억 이하 주택·오피스텔 (공공임대 제외)</li>
-    </ul>
-  </div>
+    document.querySelectorAll('.txn-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.txn-tab').forEach(t => { t.className = 'txn-tab'; });
+        currentTxn = tab.dataset.txn;
+        tab.className = `txn-tab active-${currentTxn}`;
+        updatePriceRange();
+      });
+    });
 
-  <!-- 연장 조건 -->
-  <div class="section-header">이자 지원 연장 (최대 10년)</div>
-  <div class="grid2">
-    <div class="card stat-card">
-      <div class="stat-label">자녀 출산</div>
-      <div class="stat-value-sm" style="font-size:18px;">+2년 / 1명</div>
-      <div class="stat-desc">대출기간 내 임신·출산 시<br>1명당 1회 2년씩 연장</div>
-    </div>
-    <div class="card stat-card">
-      <div class="stat-label">난임 시술</div>
-      <div class="stat-value-sm" style="font-size:18px;">+2년 (1회)</div>
-      <div class="stat-desc">1년 이상 난임 시술 받은 경우<br>1회 2년 연장 가능</div>
-    </div>
-  </div>
+    (async function init() {
+      try {
+        const resp = await fetch(CSV_URL);
+        const text = await resp.text();
+        allListings = parseCSV(text);
+      } catch (e) {
+        document.getElementById('priceRange').innerHTML = '<div class="pr-empty">데이터 오류</div>';
+      }
+      renderSubtabs();
+    })();
 
-  <!-- 주의사항 -->
-  <div class="caution">
-    <div class="caution-title">제외 대상자 (해당 시 신청 불가)</div>
-    <div class="chip-row">
-      <span class="chip">기초생활수급자</span>
-      <span class="chip">공공임대주택 거주자</span>
-      <span class="chip">부모와 임대차 계약자</span>
-      <span class="chip">본 사업 기존 참여자 (생애 1회)</span>
-      <span class="chip">주택도시기금 등 중복 수혜자</span>
-    </div>
-    <div class="caution-title" style="margin-top:12px;">이자 지원 중단 사유</div>
-    <div class="chip-row">
-      <span class="chip">1개월 내 미전입</span>
-      <span class="chip">3개월 내 혼인 미증빙</span>
-      <span class="chip">주택 취득 시</span>
-      <span class="chip">부산시 외 전출·이혼</span>
-      <span class="chip">공공임대 입주</span>
-    </div>
-  </div>
-
-  <!-- 문의 -->
-  <div class="contact">
-    <span>문의</span>
-    <a href="tel:15886200">부산은행 ☎ 1588-6200</a>
-    <span class="sep">|</span>
-    <a href="https://www.busan.go.kr/childcare/childcare010106" target="_blank" style="font-size:12px;color:var(--text2);font-weight:400;">결과 발표 확인 (busan.go.kr) →</a>
-  </div>
-
-</div>
-
-<script>
-  const amts = [10000, 15000, 20000];
-  const MAX_H = 130;
-  let cur = 0;
-
-  function fmtWon(v) {
-    const r = Math.round(v * 10) / 10;
-    return r % 1 === 0 ? r.toFixed(0) + '만원' : r.toFixed(1) + '만원';
-  }
-
-  function selectAmt(idx) {
-    cur = idx;
-    document.querySelectorAll('.c-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
-    update();
-  }
-
-  function update() {
-    const amt = amts[cur] * 10000;
-    const mYear = amt * 0.04 / 10000;
-    const iYear = amt * 0.015 / 10000;
-    const sYear = mYear - iYear;
-    const mMonth = mYear / 12;
-    const iMonth = iYear / 12;
-    const sMonth = sYear / 12;
-
-    document.getElementById('td-m-month').textContent = fmtWon(mMonth);
-    document.getElementById('td-m-year').textContent = fmtWon(mYear);
-    document.getElementById('td-i-month').textContent = fmtWon(iMonth);
-    document.getElementById('td-i-year').textContent = fmtWon(iYear);
-    document.getElementById('td-s-month').textContent = fmtWon(sMonth);
-    document.getElementById('td-s-year').textContent = fmtWon(sYear);
-    document.getElementById('lbl-market').textContent = fmtWon(mMonth);
-    document.getElementById('lbl-mine').textContent = fmtWon(iMonth);
-    document.getElementById('save-tag').textContent = '월 ' + fmtWon(sMonth) + ' 절감';
-
-    const maxBase = amts[2] * 10000 * 0.04 / 12 / 10000;
-    document.getElementById('bar-market').style.height = Math.round((mMonth / maxBase) * MAX_H) + 'px';
-    document.getElementById('bar-mine-part').style.height = Math.round((iMonth / maxBase) * MAX_H) + 'px';
-  }
-
-  update();
-</script>
+    // 평면도 탭 선택
+    function selectFloorPlan(type) {
+      const colorMap = { '59A': 'active-59A', '59B': 'active-59B', '84': 'active-84' };
+      document.querySelectorAll('.fp-tab').forEach(btn => {
+        btn.className = 'fp-tab' + (btn.dataset.fp === type ? ' ' + colorMap[type] : '');
+      });
+      document.getElementById('floor-plan-img').src = type + '.jpg';
+      document.getElementById('floor-plan-img').alt = type + ' 평면도';
+    }
+  </script>
 </body>
+
 </html>
