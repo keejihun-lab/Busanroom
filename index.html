@@ -811,6 +811,7 @@
         }
         cols.push(cur.trim());
         if (cols.length < 9) continue;
+        if (!parseNum(cols[1]) || !parseNum(cols[2])) continue;
         let gbn = cols[0];
         if (gbn.includes('매매') && gbn.includes('전세')) gbn = '매매+전세';
         const type = (cols[5] && cols[5] !== '#REF!') ? cols[5] : (cols[9] && cols[9] !== '#REF!' ? cols[9] : null);

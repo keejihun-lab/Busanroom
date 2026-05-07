@@ -919,18 +919,42 @@
 
         let bodyHtml = '';
 
-        if (hasSale) {
-          if (item.bun != null) bodyHtml += `<div class="popup-row"><span class="popup-label">분양가</span><span class="popup-val">${fmt(item.bun)}</span></div>`;
-          if (item.ext != null) bodyHtml += `<div class="popup-row"><span class="popup-label">확장비</span><span class="popup-val">${fmt(item.ext)}</span></div>`;
-          if (item.prem != null) {
-            const pc = item.prem > 0 ? 'pos' : (item.prem < 0 ? 'neg' : '');
-            bodyHtml += `<div class="popup-row"><span class="popup-label">프리미엄</span><span class="popup-val ${pc}">${fmtPremium(item.prem)}</span></div>`;
-          }
-          if (item.total != null) bodyHtml += `<div class="popup-total"><span class="popup-total-label">총 매매가</span><span class="popup-total-val">${fmt(item.total)}</span></div>`;
+        if (hasSale && item.bun != null) {
+          const pc = item.prem > 0 ? 'pos' : (item.prem < 0 ? 'neg' : '');
+          bodyHtml += `
+        <div class="popup-row">
+          <span class="popup-label">분양가</span>
+          <span class="popup-val">${fmt(item.bun)}</span>
+        </div>
+        <div class="popup-row">
+          <span class="popup-label">확장비</span>
+          <span class="popup-val">${fmt(item.ext)}</span>
+        </div>
+        <div class="popup-row">
+          <span class="popup-label">프리미엄</span>
+          <span class="popup-val ${pc}">${fmtPremium(item.prem)}</span>
+        </div>
+        <div class="popup-total">
+          <span class="popup-total-label">총 매매가</span>
+          <span class="popup-total-val">${fmt(item.total)}</span>
+        </div>
+      `;
+        } else if (hasSale && item.total) {
+          bodyHtml += `
+        <div class="popup-total">
+          <span class="popup-total-label">총 매매가</span>
+          <span class="popup-total-val">${fmt(item.total)}</span>
+        </div>
+      `;
         }
 
         if (hasLease) {
-          bodyHtml += `<div class="popup-jeonse"><span class="popup-jeonse-label">전세금</span><span class="popup-jeonse-val">${fmt(item.jeonse)}</span></div>`;
+          bodyHtml += `
+        <div class="popup-jeonse">
+          <span class="popup-jeonse-label">전세금</span>
+          <span class="popup-jeonse-val">${fmt(item.jeonse)}</span>
+        </div>
+      `;
         }
 
         div.innerHTML = badgesHtml + bodyHtml;
